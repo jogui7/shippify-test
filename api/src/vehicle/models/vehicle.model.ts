@@ -4,9 +4,8 @@ import { BaseModel } from "../../entity";
 
 @Entity('vehicle')
 export class Vehicle extends BaseModel<Vehicle>{
-    @ManyToOne(() => Driver, driver => driver.vehicles)
-    @JoinColumn({ name: 'driver_id', referencedColumnName: 'id' })
-    driver: Driver;
+    @Column({ name: 'driver_id' })
+    driverId: number;
 
     @Column()
     plate: string;
@@ -19,4 +18,8 @@ export class Vehicle extends BaseModel<Vehicle>{
 
     @Column()
     capacity: string;
+
+    @ManyToOne(() => Driver, driver => driver.vehicles)
+    @JoinColumn({ name: 'driver_id', referencedColumnName: 'id' })
+    driver: Driver;
 }

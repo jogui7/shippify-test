@@ -11,8 +11,8 @@ export class createVehicle1650422671337 implements MigrationInterface {
               name: 'id',
               type: 'int',
               isPrimary: true,
+              isGenerated: true,
               generationStrategy: 'increment',
-              default: 0
             },
             {
               name: 'driver_id',

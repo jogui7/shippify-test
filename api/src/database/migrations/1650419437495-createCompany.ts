@@ -11,8 +11,8 @@ export class createCompany1650419437495 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
             generationStrategy: 'increment',
-            default: 0
           },
           {
             name: 'name',
@@ -30,8 +30,8 @@ export class createCompany1650419437495 implements MigrationInterface {
             type: 'varchar(20)',
           },
           {
-            name: 'plan_type(20)',
-            type: 'varchar',
+            name: 'plan_type',
+            type: 'varchar(20)',
             isNullable: false
           },
           {

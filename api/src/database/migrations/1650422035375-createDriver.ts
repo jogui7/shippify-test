@@ -11,8 +11,8 @@ export class createDriver1650422035375 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
             generationStrategy: 'increment',
-            default: 0
           },
           {
             name: 'company_id',
