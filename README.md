@@ -1,6 +1,6 @@
 # shippify-test
 
-<h3  align="center">
+<h3>
 
 This API was developed during the tech interview for **[Shippify][shippify_site]** using the following techs:  ***TypeScript, Node, Express and React***.
 
@@ -36,7 +36,7 @@ $ cd ./docker
 $ docker compose up -d
 ```
 
-### Run migrations and seed database
+### Run migrations
 ```sh
 $ yarn typeorm migration:run
 ```
