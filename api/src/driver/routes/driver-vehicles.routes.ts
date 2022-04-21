@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { DriverVehicleController } from '../controllers/driver-vehicle.controller';
+import { DriverVehicleController } from '../controllers';
 import { DriverVehicleService } from '../services';
 
 export const driverVehicleRouter = Router({ mergeParams: true });

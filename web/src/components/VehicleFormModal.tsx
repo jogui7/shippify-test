@@ -5,18 +5,19 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Grid } from '@mui/material';
+import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import { restApi } from '../services/api';
-import { Vehicle } from '../App';
+import { Driver, Vehicle } from '../types';
 
 type VehicleFormModalProps = {
   vehicle?: Vehicle;
+  drivers: Driver[];
   open: boolean;
   handleClose: () => void;
   reload: () => void;
 }
 
-export default function VehicleFormModal({ vehicle, open, handleClose, reload }: VehicleFormModalProps) {
+export default function VehicleFormModal({ vehicle, drivers, open, handleClose, reload }: VehicleFormModalProps) {
   const [plate, setPlate] = useState(vehicle?.plate || '');
   const [model, setModel] = useState(vehicle?.model || '');
   const [type, setType] = useState(vehicle?.type || '');
@@ -121,16 +122,22 @@ export default function VehicleFormModal({ vehicle, open, handleClose, reload }:
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              value={driverId}
-              defaultValue={driverId}
-              onChange={(e) => setDriverId(e.target.value)}
-              id="driverId"
-              label="driverId"
-              fullWidth
-              size="small"
-              variant="outlined"
-            />
+            <FormControl fullWidth>
+              <InputLabel>driver</InputLabel>
+              <Select
+                size="small"
+                value={driverId}
+                label="driver"
+                onChange={(e) => setDriverId(e.target.value)}
+              >
+                <MenuItem value="" key="">none</MenuItem>
+                {drivers.map(item => (
+                  <MenuItem value={item.id} key={item.id}>
+                    {`${item.id} - ${item.firstName} ${item.lastName || ''}`}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
       </DialogContent>

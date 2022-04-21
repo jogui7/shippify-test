@@ -21,29 +21,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import { restApi } from './services/api';
 import AddIcon from '@mui/icons-material/AddCircleRounded';
 import VehicleFormModal from './components/VehicleFormModal';
-
-type Driver = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-};
-
-export type Vehicle = {
-  id: number;
-  plate: string;
-  model: string;
-  type: string;
-  capacity: string;
-  driver: Driver;
-};
+import { Driver, Vehicle } from './types';
 
 export default function App() {
   const [open, setOpen] = useState(false);
+  const [drivers, setDrivers] = useState<Driver[]>([])
   const [driver, setDriver] = useState<number | string>(0);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  const [modalData, setModalData] = useState<Vehicle>()
+  const [modalData, setModalData] = useState<Vehicle>();
 
   const deleteVehicle = async (id: number) => {
     const response = await restApi.delete(`/vehicle/${id}`);
@@ -52,6 +37,14 @@ export default function App() {
       fetchVehicles();
     }
   }
+
+  const fetchDrivers = useCallback(async () => {
+    const response = await restApi.get<Driver[]>(`/driver`);
+
+    if(response.ok && response.data) {
+      setDrivers(response.data);
+    }
+  }, [setDrivers]);
 
   const fetchVehicles = useCallback(async () => {
     const response = await restApi.get<Vehicle[]>(`/driver/${driver}/vehicle`);
@@ -64,6 +57,10 @@ export default function App() {
   useEffect(() => {
     fetchVehicles();
   }, [fetchVehicles]);
+
+  useEffect(() => {
+    fetchDrivers();
+  }, [fetchDrivers]);
 
   return (
     <>
@@ -88,8 +85,11 @@ export default function App() {
                         label="driver"
                         onChange={(e) => setDriver(e.target.value)}
                       >
-                        <MenuItem value={1}>joao guis</MenuItem>
-                        <MenuItem value={2}>belen</MenuItem>
+                        {drivers.map(item => (
+                          <MenuItem value={item.id} key={item.id}>
+                            {`${item.id} - ${item.firstName} ${item.lastName || ''}`}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </TableCell>
@@ -141,11 +141,12 @@ export default function App() {
       <VehicleFormModal
         open={open}
         handleClose={() => {
-          setOpen(false);
           setModalData(undefined);
+          setOpen(false);
         }}
         reload={fetchVehicles}
         vehicle={modalData}
+        drivers={drivers}
       />
     </>
   );

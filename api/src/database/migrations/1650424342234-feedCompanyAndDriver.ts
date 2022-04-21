@@ -42,11 +42,10 @@ export class feedCompanyAndDriver1650424342234 implements MigrationInterface {
         },
         {
           companyId: teceoId,
-          firstName: 'Joao',
-          lastName: 'Guis',
+          firstName: 'Ana',
           city: 30,
-          email: 'joao.gui@gmail.com',
-          phone: '+5541991194690',
+          email: 'ana@gmail.com',
+          phone: '+5547992293634',
           status: 'inactive',
         },
       ])
@@ -65,7 +64,7 @@ export class feedCompanyAndDriver1650424342234 implements MigrationInterface {
       .createQueryBuilder()
       .delete()
       .from('driver')
-      .where('email in (:...emails)', { emails: ['joao.guis2001@gmail.com', 'joao.gui@gmail.com'] })
+      .where('email in (:...emails)', { emails: ['joao.guis2001@gmail.com', 'ana@gmail.com'] })
       .execute();
   }
 

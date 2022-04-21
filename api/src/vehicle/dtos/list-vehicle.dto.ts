@@ -1,5 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { Driver } from "../../driver/models";
+import { ListDriverDTO } from "../../driver/dtos/list-driver.dto";
 import { BaseDTO } from "../../entity";
 import { Vehicle } from "../models";
 
@@ -10,7 +9,7 @@ export class ListVehicleDTO extends BaseDTO<ListVehicleDTO>{
   model: string;
   type: string;
   capacity: string;
-  driver: Driver;
+  driver: ListDriverDTO;
 
   static toDTO(entity: Vehicle): ListVehicleDTO {
     return new ListVehicleDTO({
